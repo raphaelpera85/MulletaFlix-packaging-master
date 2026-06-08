@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 
 #= Generic portable builder (portable, linux, macos, windows)
 
@@ -6,18 +6,18 @@ set -o errexit
 set -o xtrace
 
 # Set global variables
-REPOSITORY_URI="https://repo.jellyfin.org"
+REPOSITORY_URI="https://repo.MulletaFlix.org"
 FFMPEG_VERSION="7.x"
 
 # Create the intermediate build dir
 BUILD_DIR="/build"
-mkdir -p ${BUILD_DIR}/jellyfin
+mkdir -p ${BUILD_DIR}/MulletaFlix
 
 # Move to source directory
 pushd "${SOURCE_DIR}"
 
 # Build server
-pushd jellyfin-server
+pushd MulletaFlix-server
 case ${BUILD_TYPE} in
     portable)
         RUNTIME=""
@@ -32,27 +32,27 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 if [[ -z ${CONFIG} ]]; then
     CONFIG="Release"
 fi
-dotnet publish Jellyfin.Server --configuration ${CONFIG} ${RUNTIME} --output ${BUILD_DIR}/jellyfin/ -p:DebugSymbols=false -p:DebugType=none ${APPHOST}
+dotnet publish MulletaFlix.Server --configuration ${CONFIG} ${RUNTIME} --output ${BUILD_DIR}/MulletaFlix/ -p:DebugSymbols=false -p:DebugType=none ${APPHOST}
 popd
 
 # Build web
-pushd jellyfin-web
+pushd MulletaFlix-web
 npm ci --no-audit --unsafe-perm
 npm run build:production
-mv dist ${BUILD_DIR}/jellyfin/jellyfin-web
+mv dist ${BUILD_DIR}/MulletaFlix/MulletaFlix-web
 popd
 
 mkdir -p "${ARTIFACT_DIR}/"
 
 if [[ -n ${PACKAGE_ARCH} ]]; then
-    VERSION_SUFFIX="${JELLYFIN_VERSION}-${PACKAGE_ARCH}"
+    VERSION_SUFFIX="${MulletaFlix_VERSION}-${PACKAGE_ARCH}"
 else
-    VERSION_SUFFIX="${JELLYFIN_VERSION}"
+    VERSION_SUFFIX="${MulletaFlix_VERSION}"
 fi
 
 pushd ${BUILD_DIR}
 
-pushd jellyfin
+pushd MulletaFlix
 # Fetch any additional package(s) needed here (i.e. FFmpeg)
 # This is a hack because the ffmpeg naming is very inconsistent and we need to find the right URL(s) from the repo browser
 case ${BUILD_TYPE}-${PACKAGE_ARCH} in
@@ -95,13 +95,13 @@ popd
 for ARCHIVE_TYPE in $( tr ',' '\n' <<<"${ARCHIVE_TYPES}" ); do
     case ${ARCHIVE_TYPE} in
         targz)
-            tar -czf "${ARTIFACT_DIR}"/jellyfin_${VERSION_SUFFIX}.tar.gz jellyfin/
+            tar -czf "${ARTIFACT_DIR}"/MulletaFlix_${VERSION_SUFFIX}.tar.gz MulletaFlix/
         ;;
         tarxz)
-            tar -cJf "${ARTIFACT_DIR}"/jellyfin_${VERSION_SUFFIX}.tar.xz jellyfin/
+            tar -cJf "${ARTIFACT_DIR}"/MulletaFlix_${VERSION_SUFFIX}.tar.xz MulletaFlix/
         ;;
         zip)
-            zip -qr "${ARTIFACT_DIR}"/jellyfin_${VERSION_SUFFIX}.zip jellyfin/
+            zip -qr "${ARTIFACT_DIR}"/MulletaFlix_${VERSION_SUFFIX}.zip MulletaFlix/
         ;;
     esac
 done
@@ -112,3 +112,4 @@ make -f debian/rules clean
 rm -rf ${BUILD_DIR}
 
 popd
+

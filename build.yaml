@@ -1,4 +1,4 @@
----
+﻿---
 # Build definitions for `build.py`
 
 # Upstream Framework versions
@@ -13,11 +13,11 @@
 #   If the given commit is in the commit tree of the current HEAD of the repo...
 #   Use the given version. Otherwise use the default.
 frameworks:
-  jellyfin-web:
+  MulletaFlix-web:
     NODEJS_VERSION:
       6c0a64ef12b9eb40a7c4ee4b9d43d0a5f32f2287: 20  # Default
       2a7006502aa2b71d705683040a5c644ab4edaf1e: 24
-  jellyfin-server:
+  MulletaFlix-server:
     DOTNET_VERSION:
       6d1abf67c36379f0b061095619147a3691841e21: 8.0  # Default
       ceb850c77052c465af8422dcf152f1d1d1530457: 9.0
@@ -42,7 +42,7 @@ debian:
     trixie: '14'
   build_function: build_package_deb
   dockerfile: debian/docker/Dockerfile
-  imagename: jellyfin-builder-debian
+  imagename: MulletaFlix-builder-debian
 ubuntu:
   releases:
     focal: '20.04'
@@ -63,7 +63,7 @@ ubuntu:
     resolute: '14'
   build_function: build_package_deb
   dockerfile: debian/docker/Dockerfile
-  imagename: jellyfin-builder-ubuntu
+  imagename: MulletaFlix-builder-ubuntu
 
 # Portable archives
 linux:
@@ -83,7 +83,7 @@ linux:
       DOTNET_ARCH: musl-arm64
       PACKAGE_ARCH: arm64-musl
   dockerfile: portable/Dockerfile
-  imagename: jellyfin-builder-linux
+  imagename: MulletaFlix-builder-linux
 windows:
   build_function: build_windows
   archivetypes: zip
@@ -95,7 +95,7 @@ windows:
       DOTNET_ARCH: arm64
       PACKAGE_ARCH: arm64
   dockerfile: portable/Dockerfile
-  imagename: jellyfin-builder-windows
+  imagename: MulletaFlix-builder-windows
 macos:
   build_function: build_macos
   archivetypes: tarxz
@@ -107,12 +107,12 @@ macos:
       DOTNET_ARCH: arm64
       PACKAGE_ARCH: arm64
   dockerfile: portable/Dockerfile
-  imagename: jellyfin-builder-macos
+  imagename: MulletaFlix-builder-macos
 portable:
   build_function: build_portable
   archivetypes: targz,tarxz,zip
   dockerfile: portable/Dockerfile
-  imagename: jellyfin-builder-portable
+  imagename: MulletaFlix-builder-portable
 
 # Docker images
 docker:
@@ -129,20 +129,21 @@ docker:
       PACKAGE_ARCH: arm64
       TARGET_ARCH: arm64/v8
   dockerfile: docker/Dockerfile
-  imagename: jellyfin/jellyfin
+  imagename: MulletaFlix/MulletaFlix
 
 # Nuget packages
 nuget:
   build_function: build_nuget
   projects:
-    - Jellyfin.Data/Jellyfin.Data.csproj
+    - MulletaFlix.Data/MulletaFlix.Data.csproj
     - MediaBrowser.Common/MediaBrowser.Common.csproj
     - MediaBrowser.Controller/MediaBrowser.Controller.csproj
     - MediaBrowser.Model/MediaBrowser.Model.csproj
     - Emby.Naming/Emby.Naming.csproj
-    - src/Jellyfin.Extensions/Jellyfin.Extensions.csproj
-    - src/Jellyfin.Database/Jellyfin.Database.Implementations/Jellyfin.Database.Implementations.csproj
-    - src/Jellyfin.MediaEncoding.Keyframes/Jellyfin.MediaEncoding.Keyframes.csproj
+    - src/MulletaFlix.Extensions/MulletaFlix.Extensions.csproj
+    - src/MulletaFlix.Database/MulletaFlix.Database.Implementations/MulletaFlix.Database.Implementations.csproj
+    - src/MulletaFlix.MediaEncoding.Keyframes/MulletaFlix.MediaEncoding.Keyframes.csproj
   feed_urls:
     stable: https://api.nuget.org/v3/index.json
-    unstable: https://nuget.pkg.github.com/jellyfin/index.json
+    unstable: https://nuget.pkg.github.com/MulletaFlix/index.json
+

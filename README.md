@@ -1,62 +1,62 @@
-<h1 align="center">Jellyfin Packaging</h1>
-<h3 align="center">Part of Jellyfin: The Free Software Media System</h3>
+﻿<h1 align="center">MulletaFlix Packaging</h1>
+<h3 align="center">Part of MulletaFlix: The Free Software Media System</h3>
 
 ---
 
 <p align="center">
-<img alt="Logo Banner" src="https://raw.githubusercontent.com/jellyfin/jellyfin-ux/master/branding/SVG/banner-logo-solid.svg?sanitize=true"/>
+<img alt="Logo Banner" src="https://raw.githubusercontent.com/MulletaFlix/MulletaFlix-ux/master/branding/SVG/banner-logo-solid.svg?sanitize=true"/>
 <br/>
 <br/>
-<a href="https://github.com/jellyfin/jellyfin-packaging">
-<img alt="GPL 3.0 License" src="https://img.shields.io/github/license/jellyfin/jellyfin-packaging.svg"/>
+<a href="https://github.com/MulletaFlix/MulletaFlix-packaging">
+<img alt="GPL 3.0 License" src="https://img.shields.io/github/license/MulletaFlix/MulletaFlix-packaging.svg"/>
 </a>
-<a href="https://github.com/jellyfin/jellyfin/releases">
-<img alt="Current Release" src="https://img.shields.io/github/release/jellyfin/jellyfin.svg"/>
+<a href="https://github.com/MulletaFlix/MulletaFlix/releases">
+<img alt="Current Release" src="https://img.shields.io/github/release/MulletaFlix/MulletaFlix.svg"/>
 </a>
-<a href="https://translate.jellyfin.org/projects/jellyfin/jellyfin-core/?utm_source=widget">
-<img alt="Translation Status" src="https://translate.jellyfin.org/widgets/jellyfin/-/jellyfin-core/svg-badge.svg"/>
+<a href="https://translate.MulletaFlix.org/projects/MulletaFlix/MulletaFlix-core/?utm_source=widget">
+<img alt="Translation Status" src="https://translate.MulletaFlix.org/widgets/MulletaFlix/-/MulletaFlix-core/svg-badge.svg"/>
 </a>
-<a href="https://hub.docker.com/r/jellyfin/jellyfin">
-<img alt="Docker Pull Count" src="https://img.shields.io/docker/pulls/jellyfin/jellyfin.svg"/>
+<a href="https://hub.docker.com/r/MulletaFlix/MulletaFlix">
+<img alt="Docker Pull Count" src="https://img.shields.io/docker/pulls/MulletaFlix/MulletaFlix.svg"/>
 </a>
 <br/>
-<a href="https://opencollective.com/jellyfin">
-<img alt="Donate" src="https://img.shields.io/opencollective/all/jellyfin.svg?label=backers"/>
+<a href="https://opencollective.com/MulletaFlix">
+<img alt="Donate" src="https://img.shields.io/opencollective/all/MulletaFlix.svg?label=backers"/>
 </a>
-<a href="https://features.jellyfin.org">
+<a href="https://features.MulletaFlix.org">
 <img alt="Submit Feature Requests" src="https://img.shields.io/badge/fider-vote%20on%20features-success.svg"/>
 </a>
-<a href="https://matrix.to/#/#jellyfinorg:matrix.org">
-<img alt="Chat on Matrix" src="https://img.shields.io/matrix/jellyfin:matrix.org.svg?logo=matrix"/>
+<a href="https://matrix.to/#/#MulletaFlixorg:matrix.org">
+<img alt="Chat on Matrix" src="https://img.shields.io/matrix/MulletaFlix:matrix.org.svg?logo=matrix"/>
 </a>
-<a href="https://forum.jellyfin.org">
-<img alt="Join our Forum" src="https://img.shields.io/badge/Forum-forum.jellyfin.org-blue"/>
+<a href="https://forum.MulletaFlix.org">
+<img alt="Join our Forum" src="https://img.shields.io/badge/Forum-forum.MulletaFlix.org-blue"/>
 </a>
-<a href="https://github.com/jellyfin/jellyfin/releases.atom">
+<a href="https://github.com/MulletaFlix/MulletaFlix/releases.atom">
 <img alt="Release RSS Feed" src="https://img.shields.io/badge/rss-releases-ffa500?logo=rss" />
 </a>
-<a href="https://github.com/jellyfin/jellyfin/commits/master.atom">
+<a href="https://github.com/MulletaFlix/MulletaFlix/commits/master.atom">
 <img alt="Master Commits RSS Feed" src="https://img.shields.io/badge/rss-commits-ffa500?logo=rss" />
 </a>
 </p>
 
 ---
 
-Jellyfin is the Free Software Media System that puts you in control of managing and streaming your media. It is an alternative to the proprietary Emby and Plex, to provide media from a dedicated server to end-user devices via multiple apps.
+MulletaFlix is the Free Software Media System that puts you in control of managing and streaming your media. It is an alternative to the proprietary Emby and Plex, to provide media from a dedicated server to end-user devices via multiple apps.
 
-This repository contains operating system and Docker packaging for Jellyfin, for use by manual builders and our release CI system with GitHub workflows. All packaging has henceforth been removed from the main code repositories for the [Jellyfin Server](https://github.com/jellyfin/jellyfin) and [Primary WebUI](https://github.com/jellyfin/jellyfin-web) and moved here.
+This repository contains operating system and Docker packaging for MulletaFlix, for use by manual builders and our release CI system with GitHub workflows. All packaging has henceforth been removed from the main code repositories for the [MulletaFlix Server](https://github.com/MulletaFlix/MulletaFlix) and [Primary WebUI](https://github.com/MulletaFlix/MulletaFlix-web) and moved here.
 
 ## Quickstart
 
-To build Jellyfin packages for yourself, follow this quickstart guide. You will need to be running on an amd64 Linux system, preferably Debian- or Ubuntu-based, with Docker, Python3 and the Python packages `PyYAML` and `git` (`python3-yaml` and `python3-git` in Debian). Other systems including WSL are untested.
+To build MulletaFlix packages for yourself, follow this quickstart guide. You will need to be running on an amd64 Linux system, preferably Debian- or Ubuntu-based, with Docker, Python3 and the Python packages `PyYAML` and `git` (`python3-yaml` and `python3-git` in Debian). Other systems including WSL are untested.
 
 1. Install Docker on your system. The build scripts leverage Docker containers to perform clean builds and avoid contaminating the host system with dependencies.
 
 1. Clone this repository somewhere on your system and enter it.
 
-1. Run `git submodule update --init` to check out the submodules (`jellyfin-server`, `jellyfin-web`).
+1. Run `git submodule update --init` to check out the submodules (`MulletaFlix-server`, `MulletaFlix-web`).
 
-1. Run `./checkout.py` to update the submodules to the correct `HEAD`s. This command takes one argument, the tag or branch (i.e. `master`) of the repositories to check out; if nothing is specified, `master` is assumed. For example, `./checkout.py master` checks out the current `master` branch of both `jellyfin-server` and `jellyfin-web`, `./checkout.py v10.8.13` checks out the `v10.8.13` tag of both, etc. If a tag is used and one (or more) of the repositories are missing the tag, this command will error out.
+1. Run `./checkout.py` to update the submodules to the correct `HEAD`s. This command takes one argument, the tag or branch (i.e. `master`) of the repositories to check out; if nothing is specified, `master` is assumed. For example, `./checkout.py master` checks out the current `master` branch of both `MulletaFlix-server` and `MulletaFlix-web`, `./checkout.py v10.8.13` checks out the `v10.8.13` tag of both, etc. If a tag is used and one (or more) of the repositories are missing the tag, this command will error out.
 
 ### Non-Docker Platforms
 
@@ -118,7 +118,7 @@ If you want a Docker image output follow this process:
 
    * The fourth argument is `--local`, which should be provided to prevent the script from trying to generate image manifests and push the resulting images to our repositories.
 
-1. The output container image(s) will be present in your `docker image ls` as `jellyfin/jellyfin` with the tag(s) `<jellyfin_version>-<build_arch>`.
+1. The output container image(s) will be present in your `docker image ls` as `MulletaFlix/MulletaFlix` with the tag(s) `<MulletaFlix_version>-<build_arch>`.
 
 #### Examples
 
@@ -132,9 +132,9 @@ Build an `amd64` Docker image:
 
 Inside this repository are 7 major components:
 
-1. Submodules for the `jellyfin` (as `jellyfin-server`) and `jellyfin-web` repositories. These are dynamic submodules; the `checkout.py` script will check them out to the required `HEAD` on each build, and thus their actual committed value is irrelevant. Nonetheless, they should be bumped occasionally just to avoid excessive checkout times later.
+1. Submodules for the `MulletaFlix` (as `MulletaFlix-server`) and `MulletaFlix-web` repositories. These are dynamic submodules; the `checkout.py` script will check them out to the required `HEAD` on each build, and thus their actual committed value is irrelevant. Nonetheless, they should be bumped occasionally just to avoid excessive checkout times later.
 
-1. Debian/Ubuntu packaging configurations (under `debian`). These will build the 3 Jellyfin packages (`jellyfin` metapackage, `jellyfin-server` core server, and `jellyfin-web` web client) from a single Dockerfile and helper script (`build.sh`) under `debian/docker/`. Future packages (e.g. Vue) may be added here as well if and when they are promoted to a production build alongside the others, following one consistent versioning scheme.
+1. Debian/Ubuntu packaging configurations (under `debian`). These will build the 3 MulletaFlix packages (`MulletaFlix` metapackage, `MulletaFlix-server` core server, and `MulletaFlix-web` web client) from a single Dockerfile and helper script (`build.sh`) under `debian/docker/`. Future packages (e.g. Vue) may be added here as well if and when they are promoted to a production build alongside the others, following one consistent versioning scheme.
 
 1. Docker image builder (under `docker`). Like the above two as well, only building the combined Docker images with a single Dockerfile as well as preparing the various manifests needed to push these to the container repos.
 
@@ -150,7 +150,7 @@ Inside this repository are 7 major components:
 
 ### General
 
-* Unified packaging: all packaging is in this repository (vs. within the `jellyfin-server` and `jellyfin-web` repositories)
+* Unified packaging: all packaging is in this repository (vs. within the `MulletaFlix-server` and `MulletaFlix-web` repositories)
 
   This helps ensure two things:
     1. There is a single source of truth for packaging. Previously, there were at least 3 sources of truth, and this became very confusing to update.
@@ -174,9 +174,9 @@ Inside this repository are 7 major components:
 
 ### Debian/Ubuntu Packages
 
-* Unified package build: this entire repo is the "source" and the source package is named "jellyfin".
+* Unified package build: this entire repo is the "source" and the source package is named "MulletaFlix".
 
-   This was chosen to simplify the source package system and simplify building. Now, there is only a single "jellyfin" source package rather than 2. There may be more in the future as other repos might be included (e.g. "jellyfin-ffmpeg", "jellyfin-vue", etc.)
+   This was chosen to simplify the source package system and simplify building. Now, there is only a single "MulletaFlix" source package rather than 2. There may be more in the future as other repos might be included (e.g. "MulletaFlix-ffmpeg", "MulletaFlix-vue", etc.)
 
 * Dockerized build (`debian/docker/`): the build is run inside a Docker container that matches the target OS release
 
@@ -192,7 +192,7 @@ Inside this repository are 7 major components:
 
 * Signing of Debian packages with `debsigs`.
 
-   This was suggested in https://github.com/jellyfin/jellyfin-packaging/issues/14 and was not something we had ever done, but has become trivial with this CI. This alows for the end-user verification of the ownership and integrity of manually downloaded binary `.deb` files obtained from the repository with the `debsigs-verify` command and the policy detailed in that issue. Note that since Debian as a whole (i.e. `dpkg`, `apt`, etc.) does not enforce package signing at this time, enabling this for the *repository* is not possible; conventional repository signatures (using the same signing key) are considered sufficient.
+   This was suggested in https://github.com/MulletaFlix/MulletaFlix-packaging/issues/14 and was not something we had ever done, but has become trivial with this CI. This alows for the end-user verification of the ownership and integrity of manually downloaded binary `.deb` files obtained from the repository with the `debsigs-verify` command and the policy detailed in that issue. Note that since Debian as a whole (i.e. `dpkg`, `apt`, etc.) does not enforce package signing at this time, enabling this for the *repository* is not possible; conventional repository signatures (using the same signing key) are considered sufficient.
 
 ### Docker
 
@@ -225,3 +225,4 @@ Inside this repository are 7 major components:
 * Full architecture support
 
    The portable builds support all major architectures now, specifically adding `arm64` Windows builds (I'm certain that _someone_ out there uses it), and making it quite trivial to add new architectures in the future if needed.
+

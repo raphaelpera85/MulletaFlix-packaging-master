@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 
 #= Debian .deb builder
 
@@ -16,6 +16,7 @@ fi
 dpkg-buildpackage -us -uc ${CONFIG_CROSS} --pre-clean --post-clean
 
 mkdir -p "${ARTIFACT_DIR}/"
-mv ../jellyfin*.{deb,dsc,tar.gz,buildinfo,changes} "${ARTIFACT_DIR}/"
+mv ../MulletaFlix*.{deb,dsc,tar.gz,buildinfo,changes} "${ARTIFACT_DIR}/"
 
 popd
+
