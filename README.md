@@ -4,7 +4,7 @@
 ---
 
 <p align="center">
-<img alt="MulletaFlix banner" src="MulletaFlix-ux-custom/branding/search-brand-tile-transparent.png"/>
+<img alt="MulletaFlix banner" src="MulletaFlix-ux-custom/branding/NSIS/logo.png"/>
 <br/>
 <br/>
 <a href="https://github.com/raphaelpera85/MulletaFlix-packaging">
