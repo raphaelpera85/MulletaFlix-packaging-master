@@ -46,6 +46,8 @@ MulletaFlix is the Free Software Media System that puts you in control of managi
 
 This repository contains operating system and Docker packaging for MulletaFlix, for use by manual builders and our release CI system with GitHub workflows. All packaging has henceforth been removed from the main code repositories for the [MulletaFlix Server](https://github.com/MulletaFlix/MulletaFlix) and [Primary WebUI](https://github.com/MulletaFlix/MulletaFlix-web) and moved here.
 
+The custom Windows UX assets used by the packaging flow are kept in `MulletaFlix-ux-custom` alongside this repository, so the branding files stay versioned together with the installer scripts.
+
 ## Quickstart
 
 To build MulletaFlix packages for yourself, follow this quickstart guide. You will need to be running on an amd64 Linux system, preferably Debian- or Ubuntu-based, with Docker, Python3 and the Python packages `PyYAML` and `git` (`python3-yaml` and `python3-git` in Debian). Other systems including WSL are untested.
