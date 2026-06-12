@@ -1,4 +1,4 @@
-﻿name: "Preview Build Windows-Only"
+name: "MulletaFlix Preview Build Windows-Only"
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ on:
       version:
         required: true
         type: string
-        description: 'The server and web stable release tag (i.e. "vX.Y.Z")'
+        description: 'The MulletaFlix stable release tag (i.e. "vX.Y.Z")'
       preview_id:
         required: true
         type: string
@@ -33,7 +33,7 @@ jobs:
       MulletaFlix_RELEASE_TYPE: ${{ steps.version.outputs.MulletaFlix_RELEASE_TYPE }}
     continue-on-error: false  # true in prod, false for testing
     steps:
-      - name: "Set dated version for unstable builds"
+      - name: "Set preview version"
         id: version
         run: |-
           echo "MulletaFlix_VERSION=${{ inputs.version }}-rc${{ inputs.preview_id }}" >> $GITHUB_ENV
@@ -105,7 +105,7 @@ jobs:
     env:
       DOTNET_CLI_TELEMETRY_OPTOUT: 1
     steps:
-      - name: "Set dated version for unstable builds"
+      - name: "Set preview version"
         id: version
         shell: pwsh
         run: |
@@ -135,12 +135,10 @@ jobs:
           name: windows-artifacts
           path: ./MulletaFlix-server-windows
 
-      - name: "Clone UX repository"
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-        with:
-          repository: MulletaFlix/MulletaFlix-ux
-          path: .\MulletaFlix-server-windows\MulletaFlix-ux
-
+      - name: "Stage bundled UX assets"
+        run: |-
+          Remove-Item -Recurse -Force .\MulletaFlix-server-windows\MulletaFlix-ux -ErrorAction SilentlyContinue
+          Copy-Item -Recurse -Force .\MulletaFlix-ux-custom\* .\MulletaFlix-server-windows\MulletaFlix-ux
       - name: "Extract MulletaFlix server archive"
         working-directory: ./MulletaFlix-server-windows
         run: |
