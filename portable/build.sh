@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 
 #= Generic portable builder (portable, linux, macos, windows)
 
@@ -6,7 +6,7 @@ set -o errexit
 set -o xtrace
 
 # Set global variables
-REPOSITORY_URI="https://repo.MulletaFlix.org"
+REPOSITORY_URI="https://repo.jellyfin.org"
 FFMPEG_VERSION="7.x"
 
 # Create the intermediate build dir
