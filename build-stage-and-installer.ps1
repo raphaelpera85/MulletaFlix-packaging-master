@@ -33,6 +33,7 @@ function Write-Step {
 
 function Resolve-DotNet {
     $candidates = @(
+        (Join-Path $projectRoot 'dotnet-sdk-11.0.100-preview.5.26302.115-win-x64\dotnet.exe'),
         (Join-Path $env:LOCALAPPDATA 'Microsoft\dotnet\dotnet.exe'),
         'D:\Users\Raphael\.dotnet\dotnet.exe',
         'C:\Users\Raphael\.dotnet\dotnet.exe'
