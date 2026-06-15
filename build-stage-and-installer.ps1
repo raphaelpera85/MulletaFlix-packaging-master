@@ -116,6 +116,25 @@ function Build-Server {
     Write-Step 'Publishing server to stage'
     Assert-Path $serverRoot 'Server source'
 
+    $backupItems = @()
+    $preserves = @('mariadb', 'MulletaFlix-web', 'ffmpeg.exe', 'ffprobe.exe', 'nssm.exe')
+
+    foreach ($item in $preserves) {
+        $sourcePath = Join-Path $stageDir $item
+        if (Test-Path -LiteralPath $sourcePath) {
+            $tempBackupPath = Join-Path $projectRoot "stage-backup-$item"
+            if (Test-Path -LiteralPath $tempBackupPath) {
+                Remove-Item -LiteralPath $tempBackupPath -Recurse -Force
+            }
+            Move-Item -LiteralPath $sourcePath -Destination $tempBackupPath -Force
+            $backupItems += [PSCustomObject]@{
+                Item = $item
+                BackupPath = $tempBackupPath
+            }
+            Write-Host "Backed up $item from stage..." -ForegroundColor Gray
+        }
+    }
+
     if (Test-Path -LiteralPath $stageDir) {
         Remove-Item -LiteralPath $stageDir -Recurse -Force
     }
@@ -143,6 +162,13 @@ function Build-Server {
     New-Item -ItemType Directory -Force -Path $stageDir | Out-Null
     Copy-DirectoryContents -Source $serverPublishDir -Destination $stageDir
     Write-Host "Server copied to: $stageDir" -ForegroundColor Green
+
+    # Restore backups
+    foreach ($backup in $backupItems) {
+        $destPath = Join-Path $stageDir $backup.Item
+        Move-Item -LiteralPath $backup.BackupPath -Destination $destPath -Force
+        Write-Host "Restored $($backup.Item) to stage." -ForegroundColor Gray
+    }
 }
 
 function Build-Tray {
@@ -199,13 +225,39 @@ function Copy-RuntimeExtras {
         Copy-Item -LiteralPath $supportLicense -Destination (Join-Path $stageDir 'LICENSE') -Force
     }
 
-    foreach ($binary in @('ffmpeg.exe', 'ffprobe.exe', 'nssm.exe')) {
+    foreach ($binary in @('ffmpeg.exe', 'ffprobe.exe')) {
         $existing = Join-Path $stageDir $binary
         if (Test-Path -LiteralPath $existing) {
             Write-Host "Found $binary in stage." -ForegroundColor Gray
         } else {
-            Write-Warning "$binary was not found in stage. The installer script may download or report it depending on its own rules."
+            # Try to resolve from PATH or default winget packages
+            $foundPath = $null
+            $cmd = Get-Command $binary -ErrorAction SilentlyContinue
+            if ($cmd) {
+                $foundPath = $cmd.Source
+            } else {
+                $wingetPath = "C:\Users\Raphael\AppData\Local\Microsoft\WinGet\Packages\Jellyfin.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\$binary"
+                if (Test-Path -LiteralPath $wingetPath) {
+                    $foundPath = $wingetPath
+                }
+            }
+
+            if ($foundPath -and (Test-Path -LiteralPath $foundPath)) {
+                Write-Host "Resolving $binary from: $foundPath" -ForegroundColor Gray
+                Copy-Item -LiteralPath $foundPath -Destination $stageDir -Force
+                Write-Host "Copied $binary to stage." -ForegroundColor Green
+            } else {
+                Write-Warning "$binary was not found in stage and could not be resolved."
+            }
         }
+    }
+
+    # For nssm.exe, just print standard message
+    $nssmPath = Join-Path $stageDir 'nssm.exe'
+    if (Test-Path -LiteralPath $nssmPath) {
+        Write-Host "Found nssm.exe in stage." -ForegroundColor Gray
+    } else {
+        Write-Host "nssm.exe not found in stage. The installer builder will download it if needed." -ForegroundColor Gray
     }
 }
 
