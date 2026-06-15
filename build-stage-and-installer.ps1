@@ -116,10 +116,14 @@ function Build-Server {
     Write-Step 'Publishing server to stage'
     Assert-Path $serverRoot 'Server source'
 
+    if (Test-Path -LiteralPath $stageDir) {
+        Remove-Item -LiteralPath $stageDir -Recurse -Force
+    }
     if (Test-Path -LiteralPath $serverPublishDir) {
         Remove-Item -LiteralPath $serverPublishDir -Recurse -Force
     }
 
+    New-Item -ItemType Directory -Force -Path $stageDir | Out-Null
     New-Item -ItemType Directory -Force -Path $serverPublishDir | Out-Null
 
     $serverProject = Join-Path $serverRoot 'Jellyfin.Server\Jellyfin.Server.csproj'
