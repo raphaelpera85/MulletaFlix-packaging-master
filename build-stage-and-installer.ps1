@@ -7,7 +7,8 @@ param(
     [switch]$SkipWebBuild,
     [switch]$SkipServerBuild,
     [switch]$SkipTrayBuild,
-    [switch]$SkipInstaller
+    [switch]$SkipInstaller,
+    [switch]$NoPause
 )
 
 $ErrorActionPreference = 'Stop'
@@ -136,7 +137,9 @@ function Build-Server {
     }
 
     if (Test-Path -LiteralPath $stageDir) {
-        Remove-Item -LiteralPath $stageDir -Recurse -Force
+        Get-ChildItem -LiteralPath $stageDir -Force -ErrorAction SilentlyContinue | ForEach-Object {
+            Remove-Item -LiteralPath $_.FullName -Recurse -Force -ErrorAction SilentlyContinue
+        }
     }
     if (Test-Path -LiteralPath $serverPublishDir) {
         Remove-Item -LiteralPath $serverPublishDir -Recurse -Force
@@ -166,8 +169,26 @@ function Build-Server {
     # Restore backups
     foreach ($backup in $backupItems) {
         $destPath = Join-Path $stageDir $backup.Item
-        Move-Item -LiteralPath $backup.BackupPath -Destination $destPath -Force
+        if (Test-Path -LiteralPath $destPath) {
+            Remove-Item -LiteralPath $destPath -Recurse -Force -ErrorAction SilentlyContinue
+        }
+
+        Copy-Item -LiteralPath $backup.BackupPath -Destination $destPath -Recurse -Force
+        Remove-Item -LiteralPath $backup.BackupPath -Recurse -Force -ErrorAction SilentlyContinue
         Write-Host "Restored $($backup.Item) to stage." -ForegroundColor Gray
+    }
+
+    # Safety net: if a preserve item had a backup folder already on disk from a
+    # previous interrupted build, restore it even when it wasn't present at the
+    # beginning of this run.
+    foreach ($item in $preserves) {
+        $destPath = Join-Path $stageDir $item
+        $legacyBackupPath = Join-Path $projectRoot "stage-backup-$item"
+
+        if (-not (Test-Path -LiteralPath $destPath) -and (Test-Path -LiteralPath $legacyBackupPath)) {
+            Copy-Item -LiteralPath $legacyBackupPath -Destination $destPath -Recurse -Force
+            Write-Host "Recovered $item from existing backup into stage." -ForegroundColor Yellow
+        }
     }
 }
 
